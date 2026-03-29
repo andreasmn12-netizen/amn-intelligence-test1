@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMN Intelligence — AI Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:      #0e0e0d;
+  --ink-2:    #3a3a38;
+  --ink-3:    #7a7a76;
+  --ink-4:    #b8b8b2;
+  --paper:    #f7f5f0;
+  --paper-2:  #efede7;
+  --paper-3:  #e5e2da;
+  --accent:   #1a3a2a;
+  --accent-2: #2d5c42;
+  --rule:     rgba(14,14,13,0.1);
+  --serif:    'Cormorant Garamond', Georgia, serif;
+  --mono:     'Geist Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--mono);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 48px;
+  background: rgba(247,245,240,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-logo span {
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink-3);
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+.nav-cta {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--accent);
+  padding: 10px 22px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover { background: var(--accent-2); }
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.5;
+}
+
+.hero-num {
+  position: absolute;
+  top: 120px;
+  right: 48px;
+  font-size: 180px;
+  font-family: var(--serif);
+  font-weight: 300;
+  color: var(--paper-3);
+  line-height: 1;
+  user-select: none;
+  letter-spacing: -0.04em;
+}
+
+.hero-tag {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 24px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-tag::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--ink-3);
+  vertical-align: middle;
+  margin-right: 12px;
+}
+
+.hero-headline {
+  font-family: var(--serif);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 780px;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--ink-3);
+}
+
+.hero-sub {
+  margin-top: 28px;
+  max-width: 420px;
+  color: var(--ink-3);
+  line-height: 1.8;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 48px;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.btn-primary {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--accent);
+  padding: 14px 32px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover { background: var(--accent-2); }
+
+.btn-ghost {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+
+.btn-ghost:hover { color: var(--ink); }
+.btn-ghost::after { content: '→'; transition: transform 0.2s; }
+.btn-ghost:hover::after { transform: translateX(4px); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeUp 1s 0.6s ease both;
+}
+
+.hero-scroll span {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--ink-4);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* ── Section base ── */
+section { padding: 100px 48px; }
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 64px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ── Services ── */
+.services { background: var(--paper); border-top: 1px solid var(--rule); }
+
+.services-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 80px;
+  align-items: end;
+}
+
+.services-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.services-title em { font-style: italic; color: var(--ink-3); }
+
+.services-intro {
+  color: var(--ink-3);
+  line-height: 1.8;
+  max-width: 420px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-left: 1px solid var(--rule);
+}
+
+.service-card {
+  padding: 36px 28px;
+  border-right: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.25s;
+  cursor: default;
+}
+
+.service-card:hover { background: var(--paper-2); }
+
+.service-num {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ink-4);
+  margin-bottom: 40px;
+  font-family: var(--mono);
+}
+
+.service-icon {
+  font-size: 22px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.service-name {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.service-desc {
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.7;
+}
+
+/* ── Case Studies ── */
+.cases { background: var(--paper-2); border-top: 1px solid var(--rule); }
+
+.cases-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 64px;
+  max-width: 600px;
+}
+
+.cases-title em { font-style: italic; color: var(--ink-3); }
+
+.cases-list { display: flex; flex-direction: column; }
+
+.case-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr auto;
+  gap: 32px;
+  align-items: start;
+  padding: 40px 0;
+  border-top: 1px solid var(--rule);
+  transition: background 0.2s;
+}
+
+.case-item:last-child { border-bottom: 1px solid var(--rule); }
+
+.case-num {
+  font-size: 11px;
+  color: var(--ink-4);
+  letter-spacing: 0.06em;
+  padding-top: 4px;
+}
+
+.case-client {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.case-type {
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.case-desc {
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 340px;
+}
+
+.case-result {
+  text-align: right;
+}
+
+.case-result-num {
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.case-result-label {
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+}
+
+/* ── About strip ── */
+.about-strip {
+  background: var(--accent);
+  padding: 80px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-quote {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(247,245,240,0.9);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.about-right { color: rgba(247,245,240,0.6); }
+
+.about-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: rgba(247,245,240,0.9);
+  margin-bottom: 8px;
+}
+
+.about-title-text {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  color: rgba(247,245,240,0.45);
+}
+
+.about-body {
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(247,245,240,0.6);
+}
+
+/* ── Contact ── */
+.contact { background: var(--paper); border-top: 1px solid var(--rule); }
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contact-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.contact-title em { font-style: italic; color: var(--ink-3); }
+
+.contact-sub {
+  color: var(--ink-3);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.contact-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.contact-row-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.contact-row-val {
+  color: var(--ink-2);
+  font-size: 13px;
+}
+
+/* Form */
+.form { display: flex; flex-direction: column; gap: 0; }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--rule);
+  padding: 6px 0;
+}
+
+.form-group:first-child { border-top: 1px solid var(--rule); }
+
+.form-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 4px;
+  padding-top: 8px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink);
+  padding: 6px 0 12px;
+  resize: none;
+  width: 100%;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--ink-4); }
+
+.form-group select { cursor: pointer; color: var(--ink-3); }
+.form-group select option { background: var(--paper); }
+
+.form-submit {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-note {
+  font-size: 11px;
+  color: var(--ink-4);
+}
+
+.btn-submit {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--accent);
+  border: none;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover { background: var(--accent-2); }
+
+/* ── Footer ── */
+footer {
+  background: var(--ink);
+  padding: 40px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.footer-logo span { font-weight: 300; font-style: italic; color: var(--ink-3); }
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.2); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  section { padding: 60px 24px; }
+  .hero { padding: 0 24px 60px; }
+  .hero-num { font-size: 100px; top: 80px; right: 24px; }
+  .services-header { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .case-item { grid-template-columns: 1fr; gap: 12px; }
+  .case-result { text-align: left; }
+  .about-strip { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">AMN <span>Intelligence</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-num" aria-hidden="true">AI</div>
+
+  <p class="hero-tag">AI Consultancy — Copenhagen</p>
+  <h1 class="hero-headline">
+    Intelligence<br>
+    <em>built for</em><br>
+    your business.
+  </h1>
+  <p class="hero-sub">
+    AMN Intelligence helps small businesses and startups cut through the AI noise — and deploy solutions that actually move the needle.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Start a project</a>
+    <a href="#services" class="btn-ghost">See services</a>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="services" id="services">
+  <div class="section-label">What I do</div>
+
+  <div class="services-header">
+    <h2 class="services-title">Five ways I can<br><em>help you grow</em></h2>
+    <p class="services-intro">
+      From high-level strategy to hands-on implementation — I work closely with founders and business owners to find the right AI approach for their specific situation, budget, and goals.
+    </p>
+  </div>
+
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">◎</div>
+      <h3 class="service-name">AI Strategy &amp; Roadmapping</h3>
+      <p class="service-desc">A clear, prioritised plan for how AI can serve your business — without the buzzwords.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">⬡</div>
+      <h3 class="service-name">Custom AI Tool Development</h3>
+      <p class="service-desc">Purpose-built tools designed around your workflow, not off-the-shelf solutions.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">◈</div>
+      <h3 class="service-name">Team Training &amp; Workshops</h3>
+      <p class="service-desc">Hands-on sessions that get your team comfortable and productive with AI fast.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon">⟳</div>
+      <h3 class="service-name">Business Process Automation</h3>
+      <p class="service-desc">Identify and eliminate repetitive work so your team can focus on what matters.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-icon">◉</div>
+      <h3 class="service-name">Data &amp; Analytics</h3>
+      <p class="service-desc">Turn your data into decisions — dashboards, pipelines, and insight systems.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Case Studies -->
+<section class="cases" id="work">
+  <div class="section-label">Selected work</div>
+
+  <h2 class="cases-title reveal">Results that<br><em>speak clearly.</em></h2>
+
+  <div class="cases-list">
+    <div class="case-item reveal">
+      <div class="case-num">001</div>
+      <div>
+        <div class="case-client">Nordic Retail Co.</div>
+        <div class="case-type">Process Automation</div>
+      </div>
+      <p class="case-desc">Automated inventory reporting and supplier communication, replacing a 3-person manual process with an AI pipeline that runs overnight.</p>
+      <div class="case-result">
+        <div class="case-result-num">68%</div>
+        <div class="case-result-label">Cost reduction</div>
+      </div>
+    </div>
+
+    <div class="case-item reveal">
+      <div class="case-num">002</div>
+      <div>
+        <div class="case-client">SeedStage SaaS</div>
+        <div class="case-type">Custom AI Tool</div>
+      </div>
+      <p class="case-desc">Built a customer support AI that handles 80% of tier-1 tickets autonomously — trained on their specific product and tone of voice.</p>
+      <div class="case-result">
+        <div class="case-result-num">4.8×</div>
+        <div class="case-result-label">Faster response</div>
+      </div>
+    </div>
+
+    <div class="case-item reveal">
+      <div class="case-num">003</div>
+      <div>
+        <div class="case-client">Creative Agency</div>
+        <div class="case-type">Team Training</div>
+      </div>
+      <p class="case-desc">Full-day AI workshop for a 12-person creative team. Embedded practical AI workflows into their daily briefs, research, and production process.</p>
+      <div class="case-result">
+        <div class="case-result-num">3 hrs</div>
+        <div class="case-result-label">Saved per person/day</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Strip -->
+<div class="about-strip reveal">
+  <blockquote class="about-quote">
+    "AI should feel like a natural extension of how you already work — not a disruption."
+  </blockquote>
+  <div class="about-right">
+    <div class="about-name">Andreas</div>
+    <div class="about-title-text">Founder, AMN Intelligence</div>
+    <p class="about-body">
+      I work directly with business owners and founding teams — no account managers, no junior consultants. Just focused, honest advice and practical implementation from someone who has done this across industries. I believe the best AI strategy is the one your team will actually use.
+    </p>
+  </div>
+</div>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="section-label">Get in touch</div>
+
+  <div class="contact-inner">
+    <div>
+      <h2 class="contact-title reveal">Let's build<br><em>something smart.</em></h2>
+      <p class="contact-sub reveal">
+        Whether you have a clear brief or just a hunch that AI could help — reach out. The first conversation is always free.
+      </p>
+
+      <div class="contact-detail reveal">
+        <div class="contact-row">
+          <span class="contact-row-label">Based in</span>
+          <span class="contact-row-val">Denmark</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Working with</span>
+          <span class="contact-row-val">Europe &amp; remote</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Response time</span>
+          <span class="contact-row-val">Within 24 hours</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">First call</span>
+          <span class="contact-row-val">Always free</span>
+        </div>
+      </div>
+    </div>
+
+    <form class="form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label class="form-label" for="name">Your name</label>
+        <input type="text" id="name" placeholder="Andreas Hansen" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email address</label>
+        <input type="email" id="email" placeholder="hello@company.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="company">Company</label>
+        <input type="text" id="company" placeholder="Your company name">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="interest">I'm interested in</label>
+        <select id="interest">
+          <option value="">Select a service…</option>
+          <option>AI Strategy &amp; Roadmapping</option>
+          <option>Custom AI Tool Development</option>
+          <option>Team Training &amp; Workshops</option>
+          <option>Business Process Automation</option>
+          <option>Data &amp; Analytics</option>
+          <option>Not sure yet — let's talk</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message">Tell me about your project</label>
+        <textarea id="message" rows="4" placeholder="What are you working on? What's the challenge?"></textarea>
+      </div>
+
+      <div class="form-submit">
+        <span class="form-note" id="form-note">I'll reply within 24 hours.</span>
+        <button type="submit" class="btn-submit">Send message →</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">AMN <span>Intelligence</span></div>
+  <div class="footer-copy">© 2026 AMN Intelligence. All rights reserved.</div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth nav highlight
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) cur = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--ink)' : '';
+  });
+});
+
+// Form
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-submit');
+  const note = document.getElementById('form-note');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Sent ✓';
+    note.textContent = 'Thanks — I\'ll be in touch soon.';
+    note.style.color = 'var(--accent)';
+    e.target.reset();
+    setTimeout(() => {
+      btn.textContent = 'Send message →';
+      btn.disabled = false;
+      note.textContent = 'I\'ll reply within 24 hours.';
+      note.style.color = '';
+    }, 4000);
+  }, 1200);
+}
+</script>
+</body>
+</html>
